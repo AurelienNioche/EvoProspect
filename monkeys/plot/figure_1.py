@@ -17,25 +17,15 @@ from .subplot import LLS_BIC_distrib
 
 from plot.tools.tools import add_letter
 
-from analysis.model.stats import stats_regression_best_values
-from analysis.model.model import AgentSideAdditive
-# DMSciReports, AgentSoftmax, AgentSide
-
 from parameters.parameters import CONTROL_CONDITIONS, \
-    FIG_FOLDER, BACKUP_FOLDER, EXPORT_FOLDER, GAIN, LOSS
-from analysis.data_preprocessing \
-    import get_control_data, get_control_sigmoid_data, \
-    get_freq_risk_data, get_info_data, get_control_history_data, \
-    get_control_stats
-
-from analysis.model.parameter_estimate import get_parameter_estimate
+    FIG_FOLDER, GAIN, LOSS
 
 
 def figure_1(a):
 
     nrows, ncols = 2, 3
     fig, axes = plt.subplots(nrows=nrows, ncols=ncols,
-                             figsize=(6*ncols, 6*nrows))
+                             figsize=(4*ncols, 4*nrows))
 
     colors = ['C0', 'C1']
 

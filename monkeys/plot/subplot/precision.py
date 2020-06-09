@@ -3,8 +3,7 @@ import numpy as np
 from plot.tools.tools import add_text
 
 
-def plot(ax, data, linestyles=None,
-         color='C0', axis_label_font_size=20, ticks_label_size=14):
+def plot(ax, data, linestyles=None, color='C0'):
     """
     Produce the precision figure
     """
@@ -119,7 +118,7 @@ def plot(ax, data, linestyles=None,
                    linestyle='--', zorder=-10)
 
         x_label = r"$SEU(L_{right}) - SEU(L_{left})$"
-        y_label = "$P(Choose L_{right})$"
+        y_label = "$p(choose L_{right})$"
         text = r'$\lambda=' + f'{v_mean:.2f}\pm{v_std:.2f}' + '$'
 
     else:
@@ -143,8 +142,6 @@ def plot(ax, data, linestyles=None,
     # ax.set_xlim(0.0, 2.01)
     ax.set_ylim(-0.01, 1.01)
 
-    ax.tick_params(axis='both', labelsize=ticks_label_size)
-
     ax.spines['right'].set_color('none')
     ax.xaxis.set_ticks_position('bottom')
     ax.yaxis.set_ticks_position('left')
@@ -153,5 +150,5 @@ def plot(ax, data, linestyles=None,
     ax.axhline(0.5, alpha=0.5, linewidth=1, color='black',
                linestyle='--', zorder=-10)
 
-    ax.set_xlabel(x_label, fontsize=axis_label_font_size)
-    ax.set_ylabel(y_label, fontsize=axis_label_font_size)
+    ax.set_xlabel(x_label)
+    ax.set_ylabel(y_label)
