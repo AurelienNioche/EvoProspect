@@ -14,9 +14,7 @@ def _line(x, risk_aversion, class_model, ax,
             linestyle=linestyle)
 
 
-def plot(ax, data, linestyles=None, color='C0', alpha_chunk=0.5,
-         axis_label_font_size=20,
-         ticks_label_font_size=12):
+def plot(ax, data, linestyles=None, color='C0', alpha_chunk=0.5):
     """
     Produce the utility function figure
     """
@@ -73,17 +71,12 @@ def plot(ax, data, linestyles=None, color='C0', alpha_chunk=0.5,
 
     add_text(ax, r'$\omega=' + f'{v_mean:.2f}\pm{v_std:.2f}' + '$')
 
-    # ax.spines['left'].set_position(('data', 0))
-    # ax.spines['bottom'].set_position(('data', 0))
     ax.spines['right'].set_color('none')
     ax.xaxis.set_ticks_position('bottom')
     ax.yaxis.set_ticks_position('left')
     ax.spines['top'].set_color('none')
 
-    ax.set_xlabel("$x$", fontsize=axis_label_font_size)
-    ax.set_ylabel("$u(x)$", fontsize=axis_label_font_size)
-
-    ax.tick_params(axis='both', which='major', labelsize=ticks_label_font_size)
-    ax.tick_params(axis='both', which='minor', labelsize=ticks_label_font_size)
+    ax.set_xlabel("$x$")
+    ax.set_ylabel("$u(x)$")
 
     ax.set_aspect(1)

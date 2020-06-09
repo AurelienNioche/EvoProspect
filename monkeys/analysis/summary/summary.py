@@ -32,5 +32,7 @@ def export_csv(a):
             entries.filter(monkey=m).count() for m in a.monkeys
         ]
 
+    path_bkp = os.path.join(EXPORT_FOLDER, f"param.csv")
     df = pd.DataFrame(data=data)
-    df.to_csv(os.path.join(EXPORT_FOLDER, f"param.csv"))
+    df.to_csv(path_bkp)
+    print(f"CSV summary created at '{path_bkp}'")

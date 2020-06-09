@@ -20,7 +20,7 @@ def _line(param, ax,
             linewidth=linewidth, alpha=alpha, linestyle=linestyle)
 
 
-def plot(ax, data, linestyles=None, color='C0', label_font_size=20, ticks_label_size=14):
+def plot(ax, data, linestyles=None, color='C0'):
     """
     Produce the probability distortion figure
     """
@@ -52,8 +52,8 @@ def plot(ax, data, linestyles=None, color='C0', label_font_size=20, ticks_label_
         ax=ax)
     add_text(ax, r'$\alpha=' + f'{v_mean:.2f}\pm{v_std:.2f}' + '$')
 
-    ax.set_xlabel('$p$', fontsize=label_font_size)
-    ax.set_ylabel('$w(p)$', fontsize=label_font_size)
+    ax.set_xlabel('$p$')
+    ax.set_ylabel('$w(p)$')
 
     ax.set_ylim(0, 1)
     ax.set_xlim(-0.01, 1.01)
@@ -70,4 +70,4 @@ def plot(ax, data, linestyles=None, color='C0', label_font_size=20, ticks_label_
     ax.set_xticks((0, 0.5, 1))
     ax.set_yticks((0, 0.5, 1))
 
-    ax.tick_params(axis='both', which='major', labelsize=ticks_label_size)
+    ax.tick_params(axis='both', which='major')
