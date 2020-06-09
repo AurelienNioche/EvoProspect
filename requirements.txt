@@ -1,9 +1,9 @@
 matplotlib
 numpy
 scipy
+statsmodels
 django
 xlrd
 xlsxwriter
 pandas
-statsmodels
-sklearn
+tqdm

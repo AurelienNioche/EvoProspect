@@ -1,6 +1,6 @@
 # EvoProspect
 
-## 1. Raw data:
+## 1. Raw data
 
 The monkey data is split in two files: 
  - monkeys/source/data.xlsx
@@ -11,7 +11,19 @@ after:
  * 2017-03-01 for 'data_GH.xlsx';
  * 2020-02-18 for 'data.xlsx'
 
-## 2. Monkeys
+## 2. Code
+
+### Common config
+
+* Install Python3 (and pip). For instance, on MacOS using brew:
+        
+        brew install python3
+
+* Install dependencies
+
+        pip3 install -r requirements.txt
+
+## 2.1 Monkey
 
 ### Reproduce figures
     
@@ -53,7 +65,7 @@ after:
 Go to http://127.0.0.1:8000/
     
     
-## 3. Simulations
+## 2.2. Simulations
 
 ### Reproduce figures
 

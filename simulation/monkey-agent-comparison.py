@@ -4,9 +4,6 @@
 # Released under the BSD two-clauses license
 # -----------------------------------------------------------------------------
 import os
-import json
-import time
-import subprocess
 import parameters
 import numpy as np
 
