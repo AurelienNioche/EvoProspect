@@ -1,0 +1,9 @@
+matplotlib
+numpy
+scipy
+django
+xlrd
+xlsxwriter
+pandas
+statsmodels
+sklearn

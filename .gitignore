@@ -127,3 +127,20 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+.idea/
+
+# Django migrations
+monkeys/data_interface/migrations/*
+!monkeys/data_interface/migrations/__init__.py
+
+
+# Data files
+*/data/*
+!data/source/data.xlsx
+!data/source/data_GH.xlsx
+*.npy
+*.json
+
+# Figures
+*.pdf
+monkeys/fig/*
