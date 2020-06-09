@@ -66,12 +66,12 @@ locals().update(data)
 np.random.seed(seed)
 
 recompute = False # ! Force recompute or not
-dat_filename = "gain-analysis.npy"
-prm_filename = "gain-analysis.json"
-fig_filename = "gain-analysis.pdf"
+dat_filename = "data/population-gain.npy"
+prm_filename = "data/population-gain-parameters.json"
+fig_filename = "figs/gain-analysis.pdf"
 
 
-if recompute or not os.path.exists(dat_filename):
+if recompute:
     score = compute(n_lottery, n_agent, n_trial, gridsize, selection_rate)
     parameters.save(prm_filename, data)
     np.save(dat_filename, score)
