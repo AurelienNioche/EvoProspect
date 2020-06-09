@@ -13,9 +13,9 @@ parameters.dump(data)
 locals().update(data)
 np.random.seed(seed)
 
-dat_filename = "gain-analysis.npy"
-prm_filename = "gain-analysis.json"
-fig_filename = "monkey-agent-comparison.pdf"
+dat_filename = "data/population-gain.npy"
+prm_filename = "data/population-gain-parameters.json"
+fig_filename = "figs/monkey-agent-comparison.pdf"
 
 if not os.path.exists(dat_filename):
     raise Exception("Datafile not found. Please run 'gain-analysis.py'")
@@ -40,8 +40,24 @@ C = ax.contour(gscore, levels=[median,],
                 extent=[pmin, pmax, vmin, vmax], 
                 vmin=100, vmax=140, origin="lower", colors="0.25", zorder=50)
 ax.set_title("Monkeys fitted behavior", weight="bold")
-ax.set_xlabel("Probability distortion")
-ax.set_ylabel("Value distortion")
+ax.set_xlabel("α (probability function)" )
+ax.set_ylabel("β (utility function)")
+
+#ax.set_xlabel("Probability distortion")
+#ax.set_ylabel("Value distortion")
+
+ax.axhline(0, lw=0.75, ls="--", color="black")
+ax.axvline(1, lw=0.75, ls="--", color="black")
+plt.text(0.01, .75, "risk averse", rotation=90, transform=ax.transAxes,
+         ha="left", va="center", fontsize="small")
+plt.text(0.01, .25, "risk seeking", rotation=90, transform=ax.transAxes,
+         ha="left", va="center", fontsize="small")
+plt.text(0.25, 0.01, "risk seeking", rotation=0, transform=ax.transAxes,
+         ha="center", va="bottom", fontsize="small")
+plt.text(0.75, 0.01, "risk averse", rotation=0, transform=ax.transAxes,
+         ha="center", va="bottom", fontsize="small")
+
+
 
 # Display monkeys
 monkeys = np.genfromtxt('monkeys.csv', delimiter=',', dtype=None, names=True)
@@ -71,8 +87,14 @@ ax.set_xlim(pmin, pmax), ax.set_ylim(vmin, vmax)
 
 
 ax = plt.subplot(1,2,2, aspect=1)
-agent_i = np.load("agent-simulation-initial.npy")
-agent_f = np.load("agent-simulation-final.npy")
+
+p = "(selection_rate=%.2f,mutation_rate=%.2f,mixture_rate=%.2f)"
+p = p % (selection_rate, mutation_rate, mixture_rate)
+filename1 = "data/simulation-initial-population" + p + ".npy"
+filename2 = "data/simulation-final-population" + p + ".npy"
+agent_i = np.load(filename1)
+agent_f = np.load(filename2)
+
 from scipy.ndimage.filters import gaussian_filter
 gscore = gaussian_filter(score, 1.0)
 median = np.median(score)
@@ -80,7 +102,19 @@ C = ax.contour(gscore, levels=[median,],
                 extent=[pmin, pmax, vmin, vmax],
                 vmin=100, vmax=140, origin="lower", colors="0.25", zorder=50)
 ax.set_title("Agents' behavior", weight="bold")
-ax.set_xlabel("Probability distortion")
+ax.set_xlabel("α (probability function)" )
+
+ax.axhline(0, lw=0.75, ls="--", color="black")
+ax.axvline(1, lw=0.75, ls="--", color="black")
+plt.text(0.01, .75, "risk averse", rotation=90, transform=ax.transAxes,
+         ha="left", va="center", fontsize="small")
+plt.text(0.01, .25, "risk seeking", rotation=90, transform=ax.transAxes,
+         ha="left", va="center", fontsize="small")
+plt.text(0.25, 0.01, "risk seeking", rotation=0, transform=ax.transAxes,
+         ha="center", va="bottom", fontsize="small")
+plt.text(0.75, 0.01, "risk averse", rotation=0, transform=ax.transAxes,
+         ha="center", va="bottom", fontsize="small")
+
 
 # Display agents
 X, Y = agent_i[:,0], agent_i[:,1]
