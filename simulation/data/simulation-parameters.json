@@ -1,0 +1,1 @@
+{"seed": 123, "n_trial": 100, "n_agent": 1000, "n_epoch": 1000, "n_lottery": 1001, "mixture_rate": 0.25, "selection_rate": 0.2, "mutation_rate": 0.02, "pmin": 0.25, "pmax": 1.75, "vmin": -0.8, "vmax": 0.8, "gridsize": 100, "timestamp": "Tue Jun  9 16:23:07 2020", "git_branch": "master", "git_hash": "106c988a06033ac5c8b6a5cee9dfc4c43afe0d1a"}
