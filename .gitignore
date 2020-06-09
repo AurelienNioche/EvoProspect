@@ -135,12 +135,12 @@ monkeys/data_interface/migrations/*
 
 
 # Data files
-*/data/*
+monkeys/*/data/* 
 !data/source/data.xlsx
 !data/source/data_GH.xlsx
 *.npy
 *.json
 
 # Figures
-*.pdf
+# *.pdf
 monkeys/fig/*
