@@ -103,8 +103,9 @@ C = plt.contour(score, levels=[median,],
                 vmin=100, vmax=140, origin="lower", colors="white", zorder=50)
 
 ax.set_title("Mean gain of the luckiest individuals", weight="bold")
-ax.set_xlabel("Probability distortion (red)")
-ax.set_ylabel("Value distortion (blue)")
+
+ax.set_xlabel("α (probability function, red)" )
+ax.set_ylabel("β (utility function, blue)")
 axins = inset_axes(ax,
                    width="3%",  # width = 5% of parent_bbox width
                    height="33%",  # height : 50%
@@ -115,6 +116,16 @@ axins = inset_axes(ax,
 cbar = plt.colorbar(im, cax=axins,  orientation="vertical", ticks=[0,median,1])
 cbar.ax.tick_params(labelsize="small")
 
+ax.axhline(0, lw=0.75, ls="--", color="white")
+ax.axvline(1, lw=0.75, ls="--", color="white")
+plt.text(0.01, .75, "risk averse", rotation=90, transform=ax.transAxes,
+         ha="left", va="center", fontsize="small", color="white", weight="bold")
+plt.text(0.01, .25, "risk seeking", rotation=90, transform=ax.transAxes,
+         ha="left", va="center", fontsize="small", color="white", weight="bold")
+plt.text(0.25, 0.01, "risk seeking", rotation=0, transform=ax.transAxes,
+         ha="center", va="bottom", fontsize="small", color="white", weight="bold")
+plt.text(0.75, 0.01, "risk averse", rotation=0, transform=ax.transAxes,
+         ha="center", va="bottom", fontsize="small", color="white", weight="bold")
 
 
 # Display some representative points
