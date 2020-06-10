@@ -52,12 +52,10 @@ plt.text(0.01, .75, "risk averse", rotation=90, transform=ax.transAxes,
          ha="left", va="center", fontsize="small")
 plt.text(0.01, .25, "risk seeking", rotation=90, transform=ax.transAxes,
          ha="left", va="center", fontsize="small")
-plt.text(0.25, 0.01, "risk seeking", rotation=0, transform=ax.transAxes,
+plt.text(0.25, 0.01, "low ++ / high --", rotation=0, transform=ax.transAxes,
          ha="center", va="bottom", fontsize="small")
-plt.text(0.75, 0.01, "risk averse", rotation=0, transform=ax.transAxes,
+plt.text(0.75, 0.01, "low -- / high ++", rotation=0, transform=ax.transAxes,
          ha="center", va="bottom", fontsize="small")
-
-
 
 # Display monkeys
 monkeys = np.genfromtxt('monkeys.csv', delimiter=',', dtype=None, names=True)
@@ -110,11 +108,10 @@ plt.text(0.01, .75, "risk averse", rotation=90, transform=ax.transAxes,
          ha="left", va="center", fontsize="small")
 plt.text(0.01, .25, "risk seeking", rotation=90, transform=ax.transAxes,
          ha="left", va="center", fontsize="small")
-plt.text(0.25, 0.01, "risk seeking", rotation=0, transform=ax.transAxes,
+plt.text(0.25, 0.01, "low ++ / high --", rotation=0, transform=ax.transAxes,
          ha="center", va="bottom", fontsize="small")
-plt.text(0.75, 0.01, "risk averse", rotation=0, transform=ax.transAxes,
+plt.text(0.75, 0.01, "low -- / high ++", rotation=0, transform=ax.transAxes,
          ha="center", va="bottom", fontsize="small")
-
 
 # Display agents
 X, Y = agent_i[:,0], agent_i[:,1]
