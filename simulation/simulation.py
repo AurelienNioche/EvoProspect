@@ -7,6 +7,7 @@ import os
 import tqdm
 import parameters
 import numpy as np
+from string import ascii_lowercase
 
 def P_distortion(X, alpha, beta=1):
     return np.exp(-beta*(-np.log(X))**alpha)
@@ -166,19 +167,19 @@ else:
 import matplotlib.pyplot as plt
 
 # Display score
-def plot(ax, P, title, label="probabibility", display_mean=False):
+def plot(ax, P, title, xlabel, ylabel, idx_letter=None, display_mean=False):
     X = np.linspace(0, 1, n_lottery, endpoint=True)
     X[0] = 1e-15
     Y = np.zeros((len(P), len(X)))
 
     for i in range(len(Y)):
-        if label == "value":
+        if xlabel == "$x$":
             Y[i] = V_distortion(X, P[i])
         else:
             Y[i] = P_distortion(X, P[i])
         ax.plot(X, Y[i], color="C1", lw=.75, alpha=0.1)
     if display_mean:
-        if label == "value":
+        if xlabel == "$x$":
             M = V_distortion(X, np.mean(P,axis=0))
         else:
             M = P_distortion(X, np.mean(P,axis=0))
@@ -187,8 +188,8 @@ def plot(ax, P, title, label="probabibility", display_mean=False):
     M1, M2 = np.min(Y, axis=0), np.max(Y, axis=0)
     ax.plot(X, M1, color=".25", linewidth=1.0, linestyle="--")
     ax.plot(X, M2, color=".25", linewidth=1.0, linestyle="--")
-    ax.set_xlabel("Actual %s" % label)
-    ax.set_ylabel("Estimated %s" % label)
+    ax.set_xlabel(xlabel)
+    ax.set_ylabel(ylabel)
     ax.spines['left'].set_bounds(0, 1)
     ax.spines['bottom'].set_bounds(0, 1)
     ax.spines['right'].set_visible(False)
@@ -197,14 +198,21 @@ def plot(ax, P, title, label="probabibility", display_mean=False):
     ax.xaxis.set_ticks_position('bottom')
     ax.text(1, 0, title,  weight="bold",
             ha="right", va="top", transform=ax.transData)
+    ax.text(-0.1, 1.1, ascii_lowercase[idx_letter],
+            transform=ax.transAxes, size=20, weight='bold')
 
 fig, axes = plt.subplots(nrows=2, ncols=2, figsize=(10, 10))
-plot(axes[0, 0], param_i[:,0], "Initial population", "probability")
-plot(axes[0, 1], param_i[:,1], "Initial population", "value")
-plot(axes[1, 0], param_f[:,0], "Final population", "probability",
+plot(axes[0, 0], param_i[:,0], "Initial population", "$p$", "$w(p)$",
+     idx_letter=0)
+plot(axes[0, 1], param_i[:,1], "Initial population", "$x$", "$u(x)$",
+     idx_letter=1)
+plot(axes[1, 0], param_f[:,0], "Final population", "$p$", "$w(p)$",
+     idx_letter=2,
      display_mean=True)
-plot(axes[1, 1], param_f[:,1], "Final population", "value",
+plot(axes[1, 1], param_f[:,1], "Final population", "$x$", "$u(x)$",
+     idx_letter=3,
      display_mean=True)
 
+plt.tight_layout()
 plt.savefig(fig_filename)
 plt.show()

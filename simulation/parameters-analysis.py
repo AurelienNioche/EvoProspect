@@ -36,7 +36,7 @@ C = plt.contour(score, levels=[median,],
                 extent=[pmin, pmax, vmin, vmax],
                 vmin=0, vmax=1, origin="lower", colors="black", zorder=50)
 ax.set_title("Parameter sensitivity as mean of final population", weight="bold")
-ax.set_xlabel("α (probability function)" )
+ax.set_xlabel("α (probability weighting function)" )
 ax.set_ylabel("β (utility function)")
 
 marker_size = 15
@@ -51,7 +51,7 @@ for i, selection_rate in enumerate(np.arange(5,100,5)/100):
     agent_f = np.load(filename)
     X, Y = agent_f[:,0], agent_f[:,1]
     label = None
-    if i == 0: label="selection_rate"
+    if i == 0: label="selection rate"
     ax.scatter([X.mean()], [Y.mean()], s=marker_size, alpha=.5, label=label,
                facecolor="black", edgecolor="white", marker="X", lw=1)
     ax.text(X.mean(), Y.mean()-.015, "%.2f" % selection_rate,

@@ -13,7 +13,7 @@ _data = {
     "n_trial"        : 100,
     "n_agent"        : 1000,
     "n_epoch"        : 1000,
-    "n_lottery"      : 1000+1,
+    "n_lottery"      : 1000,
     "mixture_rate"   : 0.25,
     "selection_rate" : 0.20,
     "mutation_rate"  : 0.02,

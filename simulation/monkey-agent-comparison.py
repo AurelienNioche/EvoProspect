@@ -40,7 +40,7 @@ C = ax.contour(gscore, levels=[median,],
                 extent=[pmin, pmax, vmin, vmax], 
                 vmin=100, vmax=140, origin="lower", colors="0.25", zorder=50)
 ax.set_title("Monkeys fitted behavior", weight="bold")
-ax.set_xlabel("α (probability function)" )
+ax.set_xlabel("α (probability weighting function)" )
 ax.set_ylabel("β (utility function)")
 
 #ax.set_xlabel("Probability distortion")
@@ -100,7 +100,7 @@ C = ax.contour(gscore, levels=[median,],
                 extent=[pmin, pmax, vmin, vmax],
                 vmin=100, vmax=140, origin="lower", colors="0.25", zorder=50)
 ax.set_title("Agents' behavior", weight="bold")
-ax.set_xlabel("α (probability function)" )
+ax.set_xlabel("α (probability weighting function)" )
 
 ax.axhline(0, lw=0.75, ls="--", color="black")
 ax.axvline(1, lw=0.75, ls="--", color="black")

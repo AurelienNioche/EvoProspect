@@ -98,13 +98,14 @@ im = ax.imshow(score, extent=[pmin, pmax, vmin, vmax],
 from scipy.ndimage.filters import gaussian_filter
 score = gaussian_filter(score, 1.0)
 median = np.median(score)
+print("Median", median)
 C = plt.contour(score, levels=[median,],
                 extent=[pmin, pmax, vmin, vmax],
                 origin="lower", colors="white", zorder=50)
 
 ax.set_title("Mean gain of the luckiest individuals", weight="bold")
 
-ax.set_xlabel("α (probability function, red)" )
+ax.set_xlabel("α (probability weighting function, red)" )
 ax.set_ylabel("β (utility function, blue)")
 axins = inset_axes(ax,
                    width="3%",  # width = 5% of parent_bbox width
@@ -138,11 +139,11 @@ for i,v in enumerate(Av[::-1]):
     for j,p in enumerate(Ap):
         ax.scatter([p], [v], s=25,
                    facecolor="white", edgecolor="None", marker="o")
-        ax.text(p, v, "\n"+chr(ord('A') + index), transform=ax.transData,
+        ax.text(p, v, "\n"+chr(ord('a') + index), transform=ax.transData,
                va = "top", ha="center", color="white", weight="bold")
 
         ax2 =  fig.add_subplot(grid[i, 3+j], frameon=False)
-        ax2.text(0, 1, chr(ord('A') + index), transform=ax2.transAxes,
+        ax2.text(0, 1, chr(ord('a') + index), transform=ax2.transAxes,
                 va = "top", ha="left", color="black", weight="bold")
         ax2.set_xlim([0,1]), ax2.set_xticks([])
         ax2.set_ylim([0,1]), ax2.set_yticks([])
@@ -158,5 +159,6 @@ for i,v in enumerate(Av[::-1]):
         index += 1
 
 
+plt.tight_layout()
 plt.savefig(fig_filename)
 plt.show()
