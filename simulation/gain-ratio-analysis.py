@@ -6,7 +6,7 @@ def P_distortion(X, alpha): return np.exp(-(-np.log(X))**alpha)
 def V_distortion(X, alpha): return X**(1-alpha)
 
 
-# np.random.seed(123)
+np.random.seed(123)
 n_trial = 1000
 n_agent = 10000
 ratio = 0.20
@@ -15,7 +15,7 @@ start = 10
 
 P = np.zeros((2, n_agent, n_trial))
 P[0] = np.random.uniform(0.001, 1.0, (n_agent, n_trial))
-P[1] = np.random.uniform(0.001, P[0], (n_agent, n_trial))
+P[1] = np.random.uniform(P[0], 1.0, (n_agent, n_trial))
 
 X = np.zeros((2, n_agent, n_trial))
 X[0] = 1/P[0]
@@ -39,7 +39,7 @@ ax.spines['top'].set_color('none')
 ax.spines['left'].set_position(('axes', -0.05))
 ax.spines['bottom'].set_position(('axes', -0.05))
 
-ax.set_ylim(1.0, 2.5)
+ax.set_ylim(1.0, 2.0)
 ax.set_ylabel("mean gain")
 ax.set_xlim(start, n_trial)
 ax.set_xlabel("number of trials")
@@ -49,11 +49,13 @@ plt.plot(X, G0_, color='0.5', label="risk seeking")
 plt.plot(X, G1_, color='0.0', label="risk averse")
 
 def plot_ratio(x, y0, y1):
-    ratio = y1/y0
+    ratio = y0/y1
     plt.scatter([x,x], [y0, y1], s=25, edgecolor="black", facecolor="white",
                 lw=.5, zorder=50, clip_on=False)
-    plt.plot([x,x], [y0,1.75], color="black", zorder=25, clip_on=False, lw=.75, ls="--")
-    plt.text(x, 1.80, "%.2f" % ratio, va="bottom", ha="center", clip_on=False)
+    plt.plot([x,x], [min(y0,y1),1.5], color="black",
+             zorder=25, clip_on=False, lw=.75, ls="--")
+    plt.text(x, 1.51, "ratio\n%.2f" % ratio,
+             va="bottom", ha="center", clip_on=False)
 
 xticks = [start, 100, 200, 500, 1000]
 plt.xticks(xticks)
