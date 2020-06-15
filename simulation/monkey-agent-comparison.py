@@ -6,6 +6,7 @@
 import os
 import parameters
 import numpy as np
+from string import ascii_lowercase
 
 # Se parameters and initialize
 data = parameters.default()
@@ -39,7 +40,7 @@ median = np.median(score)
 C = ax.contour(gscore, levels=[median,],
                 extent=[pmin, pmax, vmin, vmax], 
                 vmin=100, vmax=140, origin="lower", colors="0.25", zorder=50)
-ax.set_title("Monkeys fitted behavior", weight="bold")
+ax.set_title("Monkeys fitted behaviour", weight="bold")
 ax.set_xlabel("α (probability weighting function)" )
 ax.set_ylabel("β (utility function)")
 
@@ -83,6 +84,9 @@ for i, label in enumerate(monkeys["name"]):
 ax.legend(frameon=False)
 ax.set_xlim(pmin, pmax), ax.set_ylim(vmin, vmax)
 
+ax.text(-0.1, 1.1, ascii_lowercase[0],
+        transform=ax.transAxes, size=20, weight='bold')
+
 
 ax = plt.subplot(1,2,2, aspect=1)
 
@@ -99,7 +103,7 @@ median = np.median(score)
 C = ax.contour(gscore, levels=[median,],
                 extent=[pmin, pmax, vmin, vmax],
                 vmin=100, vmax=140, origin="lower", colors="0.25", zorder=50)
-ax.set_title("Agents' behavior", weight="bold")
+ax.set_title("Agents' behaviour", weight="bold")
 ax.set_xlabel("α (probability weighting function)" )
 
 ax.axhline(0, lw=0.75, ls="--", color="black")
@@ -136,5 +140,9 @@ ax.legend(frameon=True, loc="upper right")
 ax.set_xlim(pmin, pmax), ax.set_ylim(vmin, vmax)
 ax.set_yticks([])
 
+ax.text(-0.1, 1.1, ascii_lowercase[1],
+        transform=ax.transAxes, size=20, weight='bold')
+
+plt.tight_layout()
 plt.savefig(fig_filename)
 plt.show()
