@@ -27,13 +27,13 @@ from analysis.data_preprocessing \
 
 from analysis.model.parameter_estimate import get_parameter_estimate
 
+from analysis.subjects_filtering import get_monkeys
+
 def nested_dict():
     return collections.defaultdict(nested_dict)
 
 
 class Analysis:
-
-    LIMIT_N_TRIAL = 2000
 
     def __init__(self, class_model, **kwargs):
 
@@ -56,53 +56,12 @@ class Analysis:
 
         self._pre_process_data(**kwargs)
 
-    @classmethod
-    def get_monkeys(cls):
-
-        selected_monkeys = []
-
-        monkeys = list(np.unique(Data.objects.values_list("monkey")))
-        print("All monkeys:", monkeys)
-
-        for m in monkeys:
-            keep = True
-            entries_m = Data.objects.filter(monkey=m)
-
-            for cond in GAIN, LOSS:
-
-                if cond == GAIN:
-                    entries = entries_m.filter(is_gain=True)
-                elif cond == LOSS:
-                    entries = entries_m.filter(is_loss=True)
-                else:
-                    raise ValueError
-
-                n_trial = entries.count()
-                if n_trial < cls.LIMIT_N_TRIAL:
-                    print(f"Monkey '{m}' has only {n_trial} trials in condition '{cond}', "
-                          f"it will not be included in the analysis")
-                    keep = False
-
-                n_right = entries.filter(c=1).count()
-                prop_right = n_right / n_trial
-                if not 0.20 <= prop_right <= 0.80:
-                    print(
-                        f"Monkey '{m}' choose the right option {prop_right * 100:.2f}% of the time in condition '{cond}', "
-                        f"it will not be included in the analysis")
-                    keep = False
-
-            if keep:
-                selected_monkeys.append(m)
-
-        print("Selected monkeys:", selected_monkeys)
-        return selected_monkeys
-
     def _pre_process_data(self,
                           skip_exception=True,
                           monkeys=None, **kwargs):
 
         if monkeys is None:
-            monkeys = self.get_monkeys()
+            monkeys = get_monkeys()
 
         black_list = []
 
@@ -206,7 +165,7 @@ class Analysis:
                 n_chunk=n_chunk_control)
 
 
-def run(force=False):
+def run(force_fit=False, use_backup_file=True):
     # for class_model in (AgentSideAdditive, AgentSide,
     #                     AgentSoftmax, DMSciReports):
     class_model = AgentSideAdditive
@@ -219,14 +178,14 @@ def run(force=False):
     bkp_file = os.path.join(BACKUP_FOLDER,
                             f"analysis_{class_model.__name__}")
 
-    if not os.path.exists(bkp_file) or force:
+    if not os.path.exists(bkp_file) or not use_backup_file:
         a = Analysis(
             monkeys=None, # ('Havane', ),""#'Gladys'),
             class_model=class_model,
             n_trials_per_chunk=200,
             n_trials_per_chunk_control=500,
             method='SLSQP',
-            force_fit=force,
+            force_fit=force_fit,
             skip_exception=False)
         pickle.dump(a, open(bkp_file, "wb"))
     else:
