@@ -1,17 +1,19 @@
 import os
 
 FIG_FOLDER = 'fig'
+TABLE_FOLDER = 'table'
 BACKUP_FOLDER = os.path.join('data', 'pickle')
 SOURCE_FOLDER = os.path.join('data', 'source')
 EXPORT_FOLDER = os.path.join('data', 'export_xlsx')
 print(f"The figure folder is: {os.path.abspath(FIG_FOLDER)}")
+print(f"The figure folder is: {os.path.abspath(TABLE_FOLDER)}")
 print(f"The backup folder is: {os.path.abspath(BACKUP_FOLDER)}")
 print(f"The source folder is: {os.path.abspath(SOURCE_FOLDER)}")
 print(f"The export folder is: {os.path.abspath(EXPORT_FOLDER)}")
 print()
 
 # Create folders
-FOLDERS = FIG_FOLDER, BACKUP_FOLDER, SOURCE_FOLDER, EXPORT_FOLDER
+FOLDERS = FIG_FOLDER, TABLE_FOLDER, BACKUP_FOLDER, SOURCE_FOLDER, EXPORT_FOLDER
 for folder in FOLDERS:
     os.makedirs(folder, exist_ok=True)
 
