@@ -22,20 +22,25 @@ _data = {
     "vmin"           : 0.00 - 0.80,
     "vmax"           : 0.00 + 0.80,
     "gridsize"       : 100,
+    "dist"           : "uniform",  # 'uniform' or 'normal'
+    "name"           : "default",
     "timestamp"      : "",
     "git_branch"     : "",
     "git_hash"       : "",
 }
+
 
 def get_git_revision_hash():
     """ Get current git hash """
     answer = subprocess.check_output(['git', 'rev-parse', 'HEAD'])
     return answer.decode("utf8").strip("\n")
 
+
 def get_git_revision_branch():
     """ Get current git branch """
     answer = subprocess.check_output(['git', 'rev-parse', '--abbrev-ref', 'HEAD'])
     return answer.decode("utf8").strip("\n")
+
 
 def default():
     """ Get default parameters """
@@ -43,6 +48,57 @@ def default():
     _data["git_branch"] = get_git_revision_branch()
     _data["git_hash"] = get_git_revision_hash()
     return _data
+
+
+def normal_dist():
+
+    _data["name"] = "normal_dist"
+    _data["dist"] = "normal"
+    _data["timestamp"] = time.ctime()
+    _data["git_branch"] = get_git_revision_branch()
+    _data["git_hash"] = get_git_revision_hash()
+    return _data
+
+
+def var_alpha_min():
+
+    _data["name"] = "var_alpha_min"
+    _data["vmin"] = - 1.0
+    _data["timestamp"] = time.ctime()
+    _data["git_branch"] = get_git_revision_branch()
+    _data["git_hash"] = get_git_revision_hash()
+    return _data
+
+
+def var_alpha_max():
+
+    _data["name"] = "var_alpha_max"
+    _data["vmax"] = 1.0
+    _data["timestamp"] = time.ctime()
+    _data["git_branch"] = get_git_revision_branch()
+    _data["git_hash"] = get_git_revision_hash()
+    return _data
+
+
+def var_beta_min():
+
+    _data["name"] = "var_beta_min"
+    _data["pmin"] = 0.001
+    _data["timestamp"] = time.ctime()
+    _data["git_branch"] = get_git_revision_branch()
+    _data["git_hash"] = get_git_revision_hash()
+    return _data
+
+
+def var_beta_max():
+
+    _data["name"] = "var_beta_max"
+    _data["pmax"] = 2.5
+    _data["timestamp"] = time.ctime()
+    _data["git_branch"] = get_git_revision_branch()
+    _data["git_hash"] = get_git_revision_hash()
+    return _data
+
 
 def save(filename, data=None):
     """ Save parameters into a json file """
@@ -55,11 +111,13 @@ def save(filename, data=None):
     with open(filename, "w") as outfile:
         json.dump(data, outfile)
 
+
 def load(filename):
     """ Load parameters from a json file """
     with open(filename) as infile:
         data = json.load(infile)
     return data
+
 
 def dump(data):
     for key, value in data.items():

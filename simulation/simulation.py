@@ -75,8 +75,21 @@ def simulation(filename1, filename2):
     lottery["v"][0] = 0
 
     # Generate agents
-    Av = np.random.uniform(vmin, vmax, n_agent)
-    Ap = np.random.uniform(pmin, pmax, n_agent)
+    if 'dist' not in globals() or dist == "uniform":
+        print("using uniform dist")
+        Av = np.random.uniform(vmin, vmax, n_agent)
+        Ap = np.random.uniform(pmin, pmax, n_agent)
+    elif dist == "normal":
+        print("using normal dist")
+        Av = np.random.normal(loc=np.mean([vmax, vmin]),
+                              scale=0.10 * (vmax-vmin),
+                              size=n_agent)
+        Ap = np.random.normal(loc=np.mean([pmin, pmax]),
+                              scale=0.10* (pmax - pmin),
+                              size=n_agent)
+    else:
+        raise ValueError
+
     agent = np.zeros((n_agent, n_lottery), dtype=[("p", float), ("v", float)])
     param = np.zeros((n_agent, 2))
     X = np.arange(0, n_lottery)/(n_lottery-1)
@@ -104,57 +117,65 @@ parameters.dump(data)
 locals().update(data)
 np.random.seed(seed)
 
-recompute = False # ! Force recompute or not
-dat_filename_1 = "data/simulation-initial-population"
-dat_filename_2 = "data/simulation-final-population"
-prm_filename = "data/simulation-parameters.json"
-fig_filename = "figs/simulation-results.pdf"
+recompute = True # ! Force recompute or not
+dat_filename_1 = f"data/simulation-initial-population-{name}"
+dat_filename_2 = f"data/simulation-final-population-{name}"
+prm_filename = f"data/simulation-parameters-{name}.json"
+fig_filename = f"figs/simulation-results-{name}.pdf"
 
 if recompute:
 
-    data = parameters.default()
-    locals().update(data)
+    # data = parameters.default()
+    # locals().update(data)
     parameters.save(prm_filename, data)
 
-    data = parameters.default()
-    locals().update(data)
-    for selection_rate in np.arange(5,100,5)/100:
-        np.random.seed(seed)
-        p = "(selection_rate=%.2f,mutation_rate=%.2f,mixture_rate=%.2f)"
-        p = p % (selection_rate, mutation_rate, mixture_rate)
-        filename1 = dat_filename_1 + p + ".npy"
-        filename2 = dat_filename_2 + p + ".npy"
-        print(p)
-        simulation(filename1, filename2)
+    np.random.seed(seed)
+    p = "(selection_rate=%.2f,mutation_rate=%.2f,mixture_rate=%.2f)"
+    p = p % (selection_rate, mutation_rate, mixture_rate)
+    filename1 = dat_filename_1 + p + ".npy"
+    filename2 = dat_filename_2 + p + ".npy"
+    print(p)
+    simulation(filename1, filename2)
+    param_i = np.load(filename1)
+    param_f = np.load(filename2)
 
-    print()
-    data = parameters.default()
-    locals().update(data)
-    for mutation_rate in np.array([1,2,3,4,5,10,20,50])/100:
-        np.random.seed(seed)
-        p = "(selection_rate=%.2f,mutation_rate=%.2f,mixture_rate=%.2f)"
-        p = p % (selection_rate, mutation_rate, mixture_rate)
-        filename1 = dat_filename_1 + p + ".npy"
-        filename2 = dat_filename_2 + p + ".npy"
-        print(p)
-        simulation(filename1, filename2)
-
-    print()
-    data = parameters.default()
-    locals().update(data)
-    for mixture_rate in np.arange(5,50,5)/100:
-        np.random.seed(seed)
-        p = "(selection_rate=%.2f,mutation_rate=%.2f,mixture_rate=%.2f)"
-        p = p % (selection_rate, mutation_rate, mixture_rate)
-        filename1 = dat_filename_1 + p + ".npy"
-        filename2 = dat_filename_2 + p + ".npy"
-        print(p)
-        simulation(filename1, filename2)
+    # data = parameters.default()
+    # locals().update(data)
+    # for selection_rate in np.arange(5,100,5)/100:
+    #     np.random.seed(seed)
+    #     p = "(selection_rate=%.2f,mutation_rate=%.2f,mixture_rate=%.2f)"
+    #     p = p % (selection_rate, mutation_rate, mixture_rate)
+    #     filename1 = dat_filename_1 + p + ".npy"
+    #     filename2 = dat_filename_2 + p + ".npy"
+    #     print(p)
+    #     simulation(filename1, filename2)
+    #
+    # print()
+    # data = parameters.default()
+    # locals().update(data)
+    # for mutation_rate in np.array([1,2,3,4,5,10,20,50])/100:
+    #     np.random.seed(seed)
+    #     p = "(selection_rate=%.2f,mutation_rate=%.2f,mixture_rate=%.2f)"
+    #     p = p % (selection_rate, mutation_rate, mixture_rate)
+    #     filename1 = dat_filename_1 + p + ".npy"
+    #     filename2 = dat_filename_2 + p + ".npy"
+    #     print(p)
+    #     simulation(filename1, filename2)
+    #
+    # print()
+    # data = parameters.default()
+    # locals().update(data)
+    # for mixture_rate in np.arange(5,50,5)/100:
+    #     np.random.seed(seed)
+    #     p = "(selection_rate=%.2f,mutation_rate=%.2f,mixture_rate=%.2f)"
+    #     p = p % (selection_rate, mutation_rate, mixture_rate)
+    #     filename1 = dat_filename_1 + p + ".npy"
+    #     filename2 = dat_filename_2 + p + ".npy"
+    #     print(p)
+    #     simulation(filename1, filename2)
         
 
 else:
-    data = parameters.default()
-    locals().update(data)
     p = "(selection_rate=%.2f,mutation_rate=%.2f,mixture_rate=%.2f)"
     p = p % (selection_rate, mutation_rate, mixture_rate)
     filename1 = dat_filename_1 + p + ".npy"

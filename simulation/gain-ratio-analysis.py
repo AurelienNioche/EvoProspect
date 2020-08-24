@@ -40,9 +40,9 @@ ax.spines['left'].set_position(('axes', -0.05))
 ax.spines['bottom'].set_position(('axes', -0.05))
 
 ax.set_ylim(1.0, 2.0)
-ax.set_ylabel("mean gain")
+ax.set_ylabel("mean gain of 20% best scorers")
 ax.set_xlim(start, n_trial)
-ax.set_xlabel("number of trials")
+ax.set_xlabel("number of lotteries played")
 X = np.arange(start, n_trial)
 
 plt.plot(X, G0_, color='0.5', label="risk seeking")
@@ -63,10 +63,11 @@ for i in xticks[1:]:
     i = i-1-start
     plot_ratio(X[i], G0_[i], G1_[i])
 plt.legend(frameon=False)
-plt.title("Mean gain of 20% best scorers as a function of the number of trials")
+
+# plt.title("Mean gain of 20% best scorers as a function of the number of trials")
     
-plt.savefig("gain-ratio-analysis.pdf")
-plt.savefig("gain-ratio-analysis.png", dpi=300)
+plt.savefig("figs/gain-ratio-analysis.pdf")
+plt.savefig("figs/gain-ratio-analysis.png", dpi=300)
 plt.show()
 
 
