@@ -7,7 +7,7 @@ from plot.figure_supplementary import figure_supplementary
 
 def main():
 
-    a = analysis.run(force_fit=False, use_backup_file=True)
+    a = analysis.run(force_fit=False, use_backup_file=False)
     # summary.export_csv(a)
     figure_supplementary(a)
 

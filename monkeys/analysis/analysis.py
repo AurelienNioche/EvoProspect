@@ -180,7 +180,7 @@ def run(force_fit=False, use_backup_file=True):
 
     if not os.path.exists(bkp_file) or not use_backup_file:
         a = Analysis(
-            monkeys=None, # ('Havane', ),""#'Gladys'),
+            monkeys=None,  # ('Havane', ),""#'Gladys'),
             class_model=class_model,
             n_trials_per_chunk=200,
             n_trials_per_chunk_control=500,

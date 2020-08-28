@@ -22,15 +22,23 @@ def sigmoid_fit(x, y, n_points=100, max_eval=10000):
     x_fit = np.linspace(min(x), max(x), n_points)
     y_fit = sigmoid(x_fit, *p_opt)
 
+    fit_stats = stats(
+        n=len(y),
+        p_opt=p_opt,
+        p_cov=p_cov,
+        p_labels=(SIG_MID, SIG_STEEP)
+    )
+
     return {
         'x': x_fit,
         'y': y_fit,
         SIG_MID: p_opt[0],
-        SIG_STEEP: p_opt[1]
+        SIG_STEEP: p_opt[1],
+        **fit_stats
     }
 
 
-def stats(y, p_opt, p_cov, alpha=0.05):
+def stats(n, p_opt, p_cov, p_labels, alpha=0.05):
 
     """
     For explanations on this, see:
@@ -48,7 +56,6 @@ def stats(y, p_opt, p_cov, alpha=0.05):
         p_err = np.sqrt(d)
 
     # Compute t -----------------------------
-    n = len(y)  # number of data points
     p = len(p_opt)  # number of parameters
 
     dof = max(0, n - p)  # number of degrees of freedom
@@ -57,12 +64,11 @@ def stats(y, p_opt, p_cov, alpha=0.05):
     tval = t.ppf(1.0 - alpha / 2., dof)
 
     # Compute ci ---------------------------
-    r = []
+    r = {}
     for i, (pr, std) in enumerate(zip(p_opt, p_err)):
 
         ci = std * tval
         print(f'{PARAM_LABELS[i]}: {pr:.2f} [{pr - ci:.2f}  {pr + ci:.2f}]')
-        r.append({"v": p, "ci": (p - ci, p + ci)})
-    print()
+        r[f"{p_labels[i]}-CI"] = (pr - ci, pr + ci)
 
     return r
