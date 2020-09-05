@@ -53,7 +53,7 @@ def figure_2(a):
                        linestyles=linestyles)
         add_letter(axes[i, 2], i=i * 3 + 2)
 
-    fig_path = os.path.join(FIG_FOLDER, "figure_2.pdf")
+    fig_path = os.path.join(FIG_FOLDER, "figure_2.png", dpi=300)
     plt.tight_layout()
     plt.savefig(fig_path)
     print(f"Figure {fig_path} created!")

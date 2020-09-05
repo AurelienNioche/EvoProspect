@@ -69,7 +69,7 @@ def plot(ax, data, linestyles=None, color='C0', alpha_chunk=0.5):
         color=color
     )
 
-    add_text(ax, r'$\omega=' + f'{v_mean:.2f}\pm{v_std:.2f}' + '$')
+    add_text(ax, r'$\beta=' + f'{v_mean:.2f}\pm{v_std:.2f}' + '$')
 
     ax.spines['right'].set_color('none')
     ax.xaxis.set_ticks_position('bottom')

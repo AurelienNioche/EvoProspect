@@ -210,6 +210,10 @@ def plot(ax, P, title, xlabel, ylabel, idx_letter=None, display_mean=False):
 
 
 fig, axes = plt.subplots(nrows=2, ncols=2, figsize=(10, 10))
+
+print(np.sum(param_f[:, 0] < 1) / len(param_i[:, 0]))
+print(np.sum(param_f[:, 1] < 0) / len(param_i[:, 1]))
+
 plot(axes[0, 0], param_i[:, 0], "Initial population", r"$\alpha$", "$n$",
      idx_letter=0)
 plot(axes[0, 1], param_i[:, 1], "Initial population", r"$\beta$", "$n$",
