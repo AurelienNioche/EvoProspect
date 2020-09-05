@@ -1,24 +1,14 @@
 import os
 import numpy as np
 import matplotlib.pyplot as plt
-from matplotlib.backends.backend_pdf import PdfPages
 
-
-from .subplot import history_control
 from .subplot import precision
 from .subplot import probability_distortion
 from .subplot import utility
-from .subplot import control
-from .subplot import freq_risk
-from .subplot import control_sigmoid
-from .subplot import info
-from .subplot import best_param_distrib
-from .subplot import LLS_BIC_distrib
 
 from plot.tools.tools import add_letter
 
-from parameters.parameters import CONTROL_CONDITIONS, \
-    FIG_FOLDER, GAIN, LOSS
+from parameters.parameters import FIG_FOLDER, GAIN, LOSS
 
 
 def figure_2(a):
@@ -33,7 +23,7 @@ def figure_2(a):
                   for i in a.monkeys]
 
     for i, cond in enumerate((GAIN, LOSS)):
-        # Fig: Utility function
+
         data = {'class_model': a.class_model,
                 'cond': cond}
         for param in ("risk_aversion", "distortion",
@@ -53,7 +43,7 @@ def figure_2(a):
                        linestyles=linestyles)
         add_letter(axes[i, 2], i=i * 3 + 2)
 
-    fig_path = os.path.join(FIG_FOLDER, "figure_2.png", dpi=300)
+    fig_path = os.path.join(FIG_FOLDER, "figure_2.png")
     plt.tight_layout()
-    plt.savefig(fig_path)
+    plt.savefig(fig_path, dpi=300)
     print(f"Figure {fig_path} created!")
