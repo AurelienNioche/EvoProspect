@@ -149,4 +149,5 @@ simulation/figs
 monkeys/table/*
 !monkeys/table/table_trials.csv
 
-
+# Data files
+/simulation/data/simulation-evol-param.npz

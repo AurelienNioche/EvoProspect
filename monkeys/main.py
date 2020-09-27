@@ -8,9 +8,9 @@ from plot.figure_supplementary import figure_supplementary
 def main():
 
     a = analysis.run(force_fit=False, use_backup_file=True)
-    # summary.export_csv(a)
-    # figure_supplementary(a)
-    #
+    summary.export_csv(a)
+    figure_supplementary(a)
+
     figure_1(a)
     figure_2(a)
 
