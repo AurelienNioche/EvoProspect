@@ -1,0 +1,10 @@
+ID,Gender,Age,Specie,Task,Mean # trials per day,STD # trials per day,# days,Total # trials
+Gla,female,5.40,M.mulatta,IMN,132.26,73.01,233,30816
+Hav,female,6.50,M.mulatta,IMN,146.88,78.70,164,24088
+Abr,male,6.77,M.tonkeana,CdP,358.66,199.93,98,35149
+Ala,male,6.92,M.tonkeana,CdP,387.82,215.49,100,38782
+Bar,male,5.21,M.tonkeana,CdP,508.36,252.45,102,51853
+Ces,male,4.71,M.tonkeana,CdP,269.59,160.31,102,27498
+Nem,female,9.12,M.tonkeana,CdP,260.35,165.76,94,24473
+Pac,male,8.59,M.tonkeana,CdP,155.75,129.37,75,11681
+Yoh,female,10.58,M.tonkeana,CdP,140.40,97.65,90,12636

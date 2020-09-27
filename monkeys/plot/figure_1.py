@@ -1,106 +1,93 @@
 import os
 import numpy as np
 import matplotlib.pyplot as plt
-from matplotlib.backends.backend_pdf import PdfPages
+from string import ascii_lowercase
 
-
-from .subplot import history_control
-from .subplot import precision
-from .subplot import probability_distortion
-from .subplot import utility
-from .subplot import control
-from .subplot import freq_risk
-from .subplot import control_sigmoid
-from .subplot import info
-from .subplot import best_param_distrib
-from .subplot import LLS_BIC_distrib
-from analysis.sigmoid_fit.sigmoid_fit import sigmoid
-
-from plot.tools.tools import add_letter, add_text
+from plot.tools.tools import add_letter  #, add_text
 
 from parameters.parameters import CONTROL_CONDITIONS, \
     FIG_FOLDER, GAIN, LOSS
 
 
-def _line(x, risk_aversion, class_model, ax,
-          alpha=1.0,
-          linewidth=3, color="C0", linestyle="-"):
+# def _line(x, risk_aversion, class_model, ax,
+#           alpha=1.0,
+#           linewidth=3, color="C0", linestyle="-"):
+#
+#     y = [class_model.u(x=i, risk_aversion=risk_aversion) for i in x]
+#
+#     ax.plot(x, y, color=color, linewidth=linewidth, alpha=alpha,
+#             linestyle=linestyle)
+#
+#
+# def plot(ax, data, linestyles=None, color='C0', alpha_chunk=0.5):
+#     """
+#     Produce the utility function figure
+#     """
+#
+#     pr = data['risk_aversion']
+#     class_model = data['class_model']
+#     cond = data['cond']
+#
+#     if linestyles is None:
+#         linestyles = ['-' for _ in range(len(pr))]
+#
+#     if cond == GAIN:
+#         x = np.linspace(0, 1, 1000)
+#         ax.set_xlim(0, 1)
+#         ax.set_ylim(0, 1)
+#
+#         ax.set_xticks([0, 1])
+#         ax.set_yticks([0, 1])
+#
+#         ax.plot((0, 1), (0, 1), alpha=0.5, linewidth=1, color='black',
+#                 linestyle='--', zorder=-10)
+#     elif cond == LOSS:
+#         x = np.linspace(-1, 0, 1000)
+#         ax.set_xlim(-1, 0)
+#         ax.set_ylim(-1, 0)
+#
+#         ax.set_xticks([-1, 0])
+#         ax.set_yticks([-1, 0])
+#
+#         ax.plot((-1, 0), (-1, 0), alpha=0.5, linewidth=1, color='black',
+#                 linestyle='--', zorder=-10)
+#     else:
+#         raise ValueError
+#
+#     for j in range(len(pr)):
+#         _line(
+#             x=x,
+#             class_model=class_model,
+#             risk_aversion=pr[j],
+#             color=color,
+#             ax=ax, linewidth=1, alpha=alpha_chunk,
+#             linestyle=linestyles[j]
+#         )
+#
+#     v_mean = np.mean(pr)
+#     v_std = np.std(pr)
+#     _line(
+#         x=x,
+#         risk_aversion=v_mean,
+#         class_model=class_model,
+#         ax=ax,
+#         color=color
+#     )
+#
+#     add_text(ax, r'$\omega=' + f'{v_mean:.2f}\pm{v_std:.2f}' + '$')
+#
+#     ax.spines['right'].set_color('none')
+#     ax.xaxis.set_ticks_position('bottom')
+#     ax.yaxis.set_ticks_position('left')
+#     ax.spines['top'].set_color('none')
+#
+#     ax.set_xlabel("$x$")
+#     ax.set_ylabel("$u(x)$")
+#
+#     ax.set_aspect(1)
 
-    y = [class_model.u(x=i, risk_aversion=risk_aversion) for i in x]
 
-    ax.plot(x, y, color=color, linewidth=linewidth, alpha=alpha,
-            linestyle=linestyle)
-
-
-def plot(ax, data, linestyles=None, color='C0', alpha_chunk=0.5):
-    """
-    Produce the utility function figure
-    """
-
-    pr = data['risk_aversion']
-    class_model = data['class_model']
-    cond = data['cond']
-
-    if linestyles is None:
-        linestyles = ['-' for _ in range(len(pr))]
-
-    if cond == GAIN:
-        x = np.linspace(0, 1, 1000)
-        ax.set_xlim(0, 1)
-        ax.set_ylim(0, 1)
-
-        ax.set_xticks([0, 1])
-        ax.set_yticks([0, 1])
-
-        ax.plot((0, 1), (0, 1), alpha=0.5, linewidth=1, color='black',
-                linestyle='--', zorder=-10)
-    elif cond == LOSS:
-        x = np.linspace(-1, 0, 1000)
-        ax.set_xlim(-1, 0)
-        ax.set_ylim(-1, 0)
-
-        ax.set_xticks([-1, 0])
-        ax.set_yticks([-1, 0])
-
-        ax.plot((-1, 0), (-1, 0), alpha=0.5, linewidth=1, color='black',
-                linestyle='--', zorder=-10)
-    else:
-        raise ValueError
-
-    for j in range(len(pr)):
-        _line(
-            x=x,
-            class_model=class_model,
-            risk_aversion=pr[j],
-            color=color,
-            ax=ax, linewidth=1, alpha=alpha_chunk,
-            linestyle=linestyles[j]
-        )
-
-    v_mean = np.mean(pr)
-    v_std = np.std(pr)
-    _line(
-        x=x,
-        risk_aversion=v_mean,
-        class_model=class_model,
-        ax=ax,
-        color=color
-    )
-
-    add_text(ax, r'$\omega=' + f'{v_mean:.2f}\pm{v_std:.2f}' + '$')
-
-    ax.spines['right'].set_color('none')
-    ax.xaxis.set_ticks_position('bottom')
-    ax.yaxis.set_ticks_position('left')
-    ax.spines['top'].set_color('none')
-
-    ax.set_xlabel("$x$")
-    ax.set_ylabel("$u(x)$")
-
-    ax.set_aspect(1)
-
-
-def figure_1(a, alpha_chunk=0.5):
+def figure_1(a, alpha_chunk=0.5, extra_cond='freq_risk_data'):
 
     nrows, ncols = 2, len(CONTROL_CONDITIONS) + 1
     fig, axes = plt.subplots(nrows=nrows, ncols=ncols,
@@ -116,7 +103,7 @@ def figure_1(a, alpha_chunk=0.5):
     for i, cond in enumerate((GAIN, LOSS)):
 
         for j, control_condition in \
-                enumerate(CONTROL_CONDITIONS + ('freq_risk_data', )):
+                enumerate(CONTROL_CONDITIONS + (extra_cond, )):
 
             ax = axes[i, j]
 
@@ -176,8 +163,10 @@ def figure_1(a, alpha_chunk=0.5):
             x_label = "$EV_{right} - EV_{left}$"
             if control_condition in CONTROL_CONDITIONS:
                 y_label = "p(choose right)"
-            else:
+            elif control_condition == extra_cond:
                 y_label = "p(choose riskiest)"
+            else:
+                raise ValueError
 
             ax.set_xlabel(x_label)
             ax.set_ylabel(y_label)
@@ -190,7 +179,16 @@ def figure_1(a, alpha_chunk=0.5):
             ax.set_ylim(0, 1)
             ax.set_yticks([0, 0.5, 1])
 
-            add_letter(axes[i, j], i=idx_subplot)
+            ax.text(-0.1, 1.1, ascii_lowercase[idx_subplot],
+                    transform=ax.transAxes, size=20, weight='bold')
+
+            title = {
+                "same p": f"Same probabilities\n({cond})",
+                "same x": f"Same amounts\n({cond})",
+                extra_cond: f"Quantity-prob. tradeoff\n({cond})"
+            }[control_condition]
+
+            ax.set_title(title, size=11, weight='bold')
 
             idx_subplot += 1
 

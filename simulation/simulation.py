@@ -117,11 +117,11 @@ parameters.dump(data)
 locals().update(data)
 np.random.seed(seed)
 
-recompute = True # ! Force recompute or not
+recompute = False   # ! Force recompute or not
 dat_filename_1 = f"data/simulation-initial-population-{name}"
 dat_filename_2 = f"data/simulation-final-population-{name}"
 prm_filename = f"data/simulation-parameters-{name}.json"
-fig_filename = f"figs/simulation-results-{name}.pdf"
+fig_filename = f"figs/simulation-results-{name}.png"
 
 if recompute:
 
@@ -217,23 +217,24 @@ def plot(ax, P, title, xlabel, ylabel, idx_letter=None, display_mean=False):
     ax.spines['top'].set_visible(False)
     ax.yaxis.set_ticks_position('left')
     ax.xaxis.set_ticks_position('bottom')
-    ax.text(1, 0, title,  weight="bold",
-            ha="right", va="top", transform=ax.transData)
+    # ax.text(1, 0, title,  weight="bold",
+    #         ha="right", va="top", transform=ax.transData)
+    ax.set_title(title, weight="bold", size=11)
     ax.text(-0.1, 1.1, ascii_lowercase[idx_letter],
             transform=ax.transAxes, size=20, weight='bold')
 
 fig, axes = plt.subplots(nrows=2, ncols=2, figsize=(10, 10))
-plot(axes[0, 0], param_i[:,0], "Initial population", "$p$", "$w(p)$",
+plot(axes[0, 0], param_i[:,0], "Probability weighting function\nInitial population", "$p$", "$w(p)$",
      idx_letter=0)
-plot(axes[0, 1], param_i[:,1], "Initial population", "$x$", "$u(x)$",
+plot(axes[0, 1], param_i[:,1], "Utility function\nInitial population", "$x$", "$u(x)$",
      idx_letter=1)
-plot(axes[1, 0], param_f[:,0], "Final population", "$p$", "$w(p)$",
+plot(axes[1, 0], param_f[:,0], "Probability weighting function\nFinal population", "$p$", "$w(p)$",
      idx_letter=2,
      display_mean=True)
-plot(axes[1, 1], param_f[:,1], "Final population", "$x$", "$u(x)$",
+plot(axes[1, 1], param_f[:,1], "Utility function\nFinal population", "$x$", "$u(x)$",
      idx_letter=3,
      display_mean=True)
 
 plt.tight_layout()
-plt.savefig(fig_filename)
-plt.show()
+plt.savefig(fig_filename, dpi=300)
+# plt.show()

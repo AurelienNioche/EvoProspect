@@ -145,12 +145,8 @@ monkeys/data/*
 monkeys/fig/*
 simulation/figs
 
+# Tables
+monkeys/table/*
+!monkeys/table/table_trials.csv
 
-/monkeys/table/
-data/
-fig/
-monkeys/plot/subplot/fig/
-monkeys/table_distortion.csv
-monkeys/table_precision.csv
-monkeys/table_risk_aversion.csv
-monkeys/table_side_bias.csv
+

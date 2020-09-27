@@ -17,11 +17,12 @@ LIMIT_N_TRIAL = 2000
 ONE_SIDE_PROP_MAX = 0.80
 
 
-def get_monkeys():
+def get_monkeys(verbose=True):
     selected_monkeys = []
 
     monkeys = list(np.unique(Data.objects.values_list("monkey")))
-    print("All monkeys:", monkeys)
+    if verbose:
+        print("All monkeys:", monkeys)
 
     for m in monkeys:
         keep = True
@@ -38,21 +39,27 @@ def get_monkeys():
 
             n_trial = entries.count()
             if n_trial < LIMIT_N_TRIAL:
-                print(
-                    f"Monkey '{m}' has only {n_trial} trials in condition '{cond}', "
-                    f"it will not be included in the analysis")
+                if verbose:
+                    print(
+                        f"Monkey '{m}' has only {n_trial} trials "
+                        f"in condition '{cond}', "
+                        f"it will not be included in the analysis")
                 keep = False
 
             n_right = entries.filter(c=1).count()
             prop_right = n_right / n_trial
             if not 1-ONE_SIDE_PROP_MAX <= prop_right <= ONE_SIDE_PROP_MAX:
-                print(
-                    f"Monkey '{m}' choose the right option {prop_right * 100:.2f}% of the time in condition '{cond}', "
-                    f"it will not be included in the analysis")
+                if verbose:
+                    print(
+                        f"Monkey '{m}' choose the right "
+                        f"option {prop_right * 100:.2f}% of "
+                        f"the time in condition '{cond}', "
+                        f"it will not be included in the analysis")
                 keep = False
 
         if keep:
             selected_monkeys.append(m)
 
-    print("Selected monkeys:", selected_monkeys)
+    if verbose:
+        print("Selected monkeys:", selected_monkeys)
     return selected_monkeys
