@@ -65,7 +65,7 @@ parameters.dump(data)
 locals().update(data)
 np.random.seed(seed)
 
-recompute = False # ! Force recompute or not
+recompute = True # ! Force recompute or not
 dat_filename = "data/population-gain.npy"
 prm_filename = "data/population-gain-parameters.json"
 fig_filename = "figs/gain-analysis.pdf"

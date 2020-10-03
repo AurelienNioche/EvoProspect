@@ -88,9 +88,9 @@ locals().update(data)
 np.random.seed(seed)
 
 recompute = True # ! Force recompute or not
-dat_filename = "data/population-gain.npy"
+dat_filename = "data/population-gain-experiment.npy"
 prm_filename = "data/population-gain-parameters.json"
-fig_filename = "figs/gain-analysis.pdf"
+fig_filename = "figs/gain-analysis-experiment.pdf"
 
 
 if recompute:

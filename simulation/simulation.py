@@ -121,7 +121,7 @@ recompute = False   # ! Force recompute or not
 dat_filename_1 = f"data/simulation-initial-population-{name}"
 dat_filename_2 = f"data/simulation-final-population-{name}"
 prm_filename = f"data/simulation-parameters-{name}.json"
-fig_filename = f"figs/simulation-results-{name}.png"
+fig_filename = f"figs/simulation-results-{name}"
 
 if recompute:
 
@@ -236,5 +236,6 @@ plot(axes[1, 1], param_f[:,1], "Utility function\nFinal population", "$x$", "$u(
      display_mean=True)
 
 plt.tight_layout()
-plt.savefig(fig_filename, dpi=300)
+plt.savefig(f'{fig_filename}.png', dpi=300)
+plt.savefig(f'{fig_filename}.pdf', dpi=300)
 # plt.show()

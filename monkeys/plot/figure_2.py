@@ -55,7 +55,12 @@ def figure_2(a):
         ax.set_title(f"Softmax function\n({cond})",
                      size=11, weight='bold')
 
-    fig_path = os.path.join(FIG_FOLDER, "figure_2.png")
     plt.tight_layout()
+
+    fig_path = os.path.join(FIG_FOLDER, "figure_2.png")
     plt.savefig(fig_path, dpi=300)
+    print(f"Figure {fig_path} created!")
+
+    fig_path = os.path.join(FIG_FOLDER, f"figure_2.pdf")
+    plt.savefig(fig_path)
     print(f"Figure {fig_path} created!")

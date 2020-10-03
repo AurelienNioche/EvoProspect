@@ -37,7 +37,7 @@ def main():
         df.loc[m_index, "# days"] = str(len(dates))
 
     print(df)
-    df.to_csv(os.path.join("table", "table_trials_new.csv"))
+    df.to_csv(os.path.join("table", "table_trials_extended.csv"))
 
 
 if __name__ == "__main__":

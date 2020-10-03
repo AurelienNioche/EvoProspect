@@ -151,3 +151,8 @@ monkeys/table/*
 
 # Data files
 /simulation/data/simulation-evol-param.npz
+
+# Data
+data/
+# Fig
+fig/

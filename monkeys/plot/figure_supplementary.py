@@ -51,7 +51,7 @@ def fig_control(a):
                     dot_size=50)
                 k += 1
 
-        fig_path = os.path.join(FIG_FOLDER, f"figure_{control_condition}.pdf")
+        fig_path = os.path.join(FIG_FOLDER, f"SUP_{control_condition}.pdf")
         plt.tight_layout()
         plt.savefig(fig_path)
         print(f"Figure {fig_path} created!")
@@ -77,7 +77,7 @@ def fig_freq_risk(a):
                            dot_size=50)
             k += 1
 
-    fig_path = os.path.join(FIG_FOLDER, "figure_freq_risk.pdf")
+    fig_path = os.path.join(FIG_FOLDER, "SUP_freq_risk.pdf")
     plt.tight_layout()
     plt.savefig(fig_path)
     print(f"Figure {fig_path} created!")
@@ -113,7 +113,7 @@ def fig_ind(a):
         for ax in axes[k:]:
             ax.set_axis_off()
 
-        fig_path = os.path.join(FIG_FOLDER, f"fig_ind_{cond}.pdf")
+        fig_path = os.path.join(FIG_FOLDER, f"SUP_ind_{cond}.pdf")
         plt.tight_layout()
         plt.savefig(fig_path)
         print(f"Figure {fig_path} created!")

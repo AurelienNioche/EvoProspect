@@ -192,7 +192,14 @@ def figure_1(a, alpha_chunk=0.5, extra_cond='freq_risk_data'):
 
             idx_subplot += 1
 
-    fig_path = os.path.join(FIG_FOLDER, f"figure_1.png")
     plt.tight_layout()
-    plt.savefig(fig_path, dpi=200)
+
+    # Png version
+    fig_path = os.path.join(FIG_FOLDER, f"figure_1.png")
+    plt.savefig(fig_path, dpi=300)
+    print(f"Figure {fig_path} created!")
+
+    # Pdf version
+    fig_path = os.path.join(FIG_FOLDER, f"figure_1.pdf")
+    plt.savefig(fig_path)
     print(f"Figure {fig_path} created!")
